@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - pip install --upgrade awscli
+      - dotnet tool install -g Amazon.Lambda.Tools
+      - dotnet restore xmlfilevalidator/xmlfilevalidator.csproj
+      - dotnet restore xmlfilevalidator.Tests/xmlfilevalidator.Tests.csproj
+  build:
+    commands:
+      - dotnet publish -c release xmlfilevalidator/xmlfilevalidator.csproj
+      - dotnet publish -c release xmlfilevalidator.Tests/xmlfilevalidator.Tests.csproj
+      - dotnet vstest xmlfilevalidator.Tests/bin/release/netcoreapp2.1/publish/xmlfilevalidator.Tests.dll
+      - cd xmlfilevalidator
+      - dotnet lambda package-ci --s3-bucket xxxxxxxxxxxxx --output-template xmlfilevalidator-updated-serverless.template --template serverless.yml
+artifacts:
+  files:
+    - ./xmlfilevalidator/xmlfilevalidator-updated-serverless.template
+  discard-paths: yes

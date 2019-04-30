@@ -1,0 +1,17 @@
+﻿AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: A starter AWS Lambda function.
+Resources:
+  LambdaHelloWorld:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: xmlfilevalidator::xmlfilevalidator.Function::FunctionHandler
+      Runtime: dotnetcore2.1
+      CodeUri: ''
+      MemorySize: 1024
+      Timeout: 3
+      Role: 'arn:aws:iam::573575823092:role/lambdafullaccess'
+      Tracing: Active
+      AutoPublishAlias: Dev
+      DeploymentPreference:
+        Type: AllAtOnce

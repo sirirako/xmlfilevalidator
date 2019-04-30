@@ -71,7 +71,7 @@ namespace xmlfilevalidator
                 {
                     XmlReader reader = XmlReader.Create(xmlReaderS3Object, settings);
                     while (reader.Read()) { }
-                    return "good";
+                    return "good right?";
                 }
                 catch (Exception e)
                 {
